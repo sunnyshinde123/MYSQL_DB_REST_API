@@ -16,6 +16,7 @@ app.use(express.static(path.join(__dirname, "public/js")));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
+
 app.listen(port, ()=>{
     console.log(`listen to the port of ${port}`);
 });
