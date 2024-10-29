@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <table border="2px solid black">
+                <caption>
+                    <th colspan="5">USERS Data</th>
+                </caption>
+                <tr>
+                    <th>id</th>
+                    <th>username</th>
+                    <th>email</th>
+                    <th rowspan="1">Edit</th>
+                    <th rowspan="1">Delete</th>
+                </tr>
+            <%for(let res of result){%>
+                <tr>
+                    <td><%=res.id%></td>
+                    <td><%=res.username%></td>
+                    <td><%=res.email%></td>
+                    <form method="get" action="/users/<%=res.id%>/edit">
+                        <td><button>edit</button></td>
+                    </form>
+                    <form method="get" action="/users/<%=res.id%>/delete">
+                        <td><button>delete</button></td>
+                    </form>
+                </tr>
+            <%}%>
+        </table>
+    </center>
+</body>
+</html>

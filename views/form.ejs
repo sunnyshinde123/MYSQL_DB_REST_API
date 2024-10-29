@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>ID : <%=data.id%></h3>
+    <form method="post" action="/users/<%=data.id%>?_method=PATCH">
+        <label for="username">Username :</label>
+        <input type="text" id="username" name="username" placeholder="<%=data.username%>">
+        <br><br>
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" placeholder="<%=data.email%>">
+        <br><br>
+        <label for="password">Password :</label>
+        <input type="password" id="password" name="password" placeholder="password" onchange="checkPassword('<%=data.password%>')" required>
+        <br><br>
+        <button>Update</button>
+    </form>
+    <script>
+        function checkPassword(data){
+            let res=document.getElementById('password').value;
+            if(res!=data){
+                alert("Wrong Password entered! pls try again...");
+                document.getElementById('password').value="";
+            }
+        }
+    </script>
+</body>
+</html>
