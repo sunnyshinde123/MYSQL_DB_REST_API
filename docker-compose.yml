@@ -1,0 +1,57 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: delta_app
+    volumes:
+      - mysql_DB:/var/lib/mysql
+    ports: 
+      - 3306:3306
+    networks:
+      - users
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin","ping","-h","localhost","-uroot","-padmin"]
+      interval: 10s
+      timeout: 20s
+      retries: 10
+      start_period: 60s
+
+      
+
+  delta-app:
+    build:
+      context: .
+    container_name: delta-app
+    environment:
+      DB_PASSWORD: admin
+      DB_DATABASE: delta_app
+      DB_USER: root
+      DB_HOST: mysql-container
+    ports:
+      - 6060:6060
+    networks:
+      - users
+    depends_on:
+      - mysql
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:6060/"]
+      interval: 10s
+      timeout: 20s
+      retries: 10
+      start_period: 60s
+
+
+           
+
+volumes:
+  mysql_DB:
+
+networks:
+  users:
+
