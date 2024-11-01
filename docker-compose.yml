@@ -26,6 +26,7 @@ services:
   delta-app:
     build:
       context: .
+      dockerfile: ./Docker-multi-stage
     container_name: delta-app
     environment:
       DB_PASSWORD: admin

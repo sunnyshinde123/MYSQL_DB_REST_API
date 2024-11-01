@@ -1,0 +1,30 @@
+# Stage 1 - small
+# Base Image
+FROM node:18 As small
+
+# Working Dir
+WORKDIR /app
+
+# Copy the package.json and package-lock.json
+COPY package*.json /app/
+
+# Install the Libraries and Dependencies
+RUN npm install
+
+# Stag2 
+FROM node:18-slim
+
+# Working Dir
+WORKDIR /app
+
+# Copy the libraries and dependencies installed in above images
+COPY --from=small /app/node_modules/ ./node_modules/
+
+# Copy code
+COPY . .
+
+# Expose Port
+EXPOSE 6060
+
+# Run the Server
+CMD ["node", "index.js"]
